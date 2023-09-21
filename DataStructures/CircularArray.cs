@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.BlackCubeSubmodule.DataStructures
+namespace Code.MySubmodule.DataStructures
 {
     /// <summary>
     /// NOT TESTED!!! 

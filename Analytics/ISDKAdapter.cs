@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.BlackCubeSubmodule.Analytics
+namespace Code.MySubmodule.Analytics
 {
     /// <summary>
     /// Interface for adapters initialization

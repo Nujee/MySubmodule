@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using CameraType = Code.Game.Constants.GeneratedCode.CameraName;
 
-namespace Code.BlackCubeSubmodule.Services.Camera
+namespace Code.MySubmodule.Services.Camera
 {
     [DisallowMultipleComponent]
     public sealed class CamerasTargetsSettings : MonoBehaviour, ICamerasTargetsSettings

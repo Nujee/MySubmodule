@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.Services.UI.ScreenService
+﻿namespace Code.MySubmodule.Services.UI.ScreenService
 {
     public enum ScreenOpenType
     {

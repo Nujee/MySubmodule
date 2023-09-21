@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.CollisionHandling.UnityPhysics
+namespace Code.MySubmodule.CollisionHandling.UnityPhysics
 {
     /// <summary>
     /// Data transfer object for collision data.

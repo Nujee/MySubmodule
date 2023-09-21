@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Math.Parabolas
+namespace Code.MySubmodule.Math.Parabolas
 {
     public sealed class DynamicParabola
     {

@@ -1,9 +1,9 @@
-﻿using Code.BlackCubeSubmodule.Unity.ComponentsExtensions;
+﻿using Code.MySubmodule.Unity.ComponentsExtensions;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.ECS.UI.FollowUIElements
+namespace Code.MySubmodule.ECS.UI.FollowUIElements
 {
     public sealed class s_UpdateFollowUIElements : IEcsRunSystem
     {

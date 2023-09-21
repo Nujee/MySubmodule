@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.ECS
+﻿namespace Code.MySubmodule.ECS
 {
     public enum SystemType
     {

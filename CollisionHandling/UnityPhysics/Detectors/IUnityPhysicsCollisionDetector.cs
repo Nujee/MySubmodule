@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Leopotam.EcsLite;
 
-namespace Code.BlackCubeSubmodule.CollisionHandling.UnityPhysics.Detectors
+namespace Code.MySubmodule.CollisionHandling.UnityPhysics.Detectors
 {
     /// <summary>
     /// This interface exists only for detectors initializations. 

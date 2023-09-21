@@ -2,7 +2,7 @@
 using UnityEngine;
 using CameraType = Code.Game.Constants.GeneratedCode.CameraName;
 
-namespace Code.BlackCubeSubmodule.Services.Camera
+namespace Code.MySubmodule.Services.Camera
 {
     [System.Serializable]
     public sealed class CameraTargetData

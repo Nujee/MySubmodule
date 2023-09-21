@@ -1,12 +1,11 @@
-﻿using Sirenix.OdinInspector;
+﻿using TriInspector;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.ECS.Features
+namespace Code.MySubmodule.ECS.Features
 {
     [System.Serializable]
     public struct FeatureGroupContainer
     {
-        [LabelWidth(80f)]
         public SystemType SystemType;
 
         [HideInInspector]
@@ -15,7 +14,6 @@ namespace Code.BlackCubeSubmodule.ECS.Features
         [ShowIf("ShouldShow")]
         public float UpdateInterval;
         
-        [ListDrawerSettings(NumberOfItemsPerPage = 40)]
         public FeatureContainer[] Features;
     }
 }

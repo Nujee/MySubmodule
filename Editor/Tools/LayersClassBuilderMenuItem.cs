@@ -1,10 +1,10 @@
 ﻿#if UNITY_EDITOR
 using System.Linq;
-using Code.BlackCubeSubmodule.CodeGeneration;
+using Code.MySubmodule.CodeGeneration;
 using UnityEditor;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Editor.Tools
+namespace Code.MySubmodule.Editor.Tools
 {
     public static class LayersClassBuilderMenuItem
     {

@@ -1,39 +1,37 @@
-﻿using Code.BlackCubeSubmodule.Math;
-using Code.BlackCubeSubmodule.Services.Effects;
-using Code.BlackCubeSubmodule.Services.LifeTime;
-using Code.BlackCubeSubmodule.Services.UI.ScreenService;
-using Code.BlackCubeSubmodule.UI.VictoryScreen;
-using Code.Game.Constants.GeneratedCode;
-using Cysharp.Threading.Tasks;
+﻿using Code.Game.Constants.GeneratedCode;
+using Code.MySubmodule.ECS.ExtensionMethods;
+using Code.MySubmodule.ECS.LevelEntity;
+using Code.MySubmodule.Services.Effects;
+using Code.MySubmodule.Services.UI.Screens.ConcreteScreens;
+using Code.MySubmodule.Services.UI.ScreenService;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 
-namespace Code.BlackCubeSubmodule.ECS.EndGame
+namespace Code.MySubmodule.ECS.EndGame
 {
     public sealed class s_RunDefaultVictory : IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<r_RunDefaultVictory>> _victoryRequests = default;
-
+        private readonly EcsFilterInject<Inc<c_LevelRuntimeData, r_Victory>, Exc<m_GameHasEnded>> _levels = default;
+        private readonly EcsPoolInject<m_GameHasEnded> _gameEnded = default;
         private readonly EcsCustomInject<ScreenService> _screenService = default;
-        private readonly EcsCustomInject<VictoryViewConfig> _victoryViewConfig = default;
 
         public void Run(IEcsSystems systems)
         {
-            foreach (var requestEntity in _victoryRequests.Value)
+            foreach (var entity in _levels.Value)
             {
-                DoOnVictory();
-                
-                systems.GetWorld().DelEntity(requestEntity);
+                _levels.Pools.Inc2.Del(entity);
+                _gameEnded.Value.Add(entity);
+                DoOnVictory(systems.GetWorld());
             }
         }
 
-        private async void DoOnVictory()
+        private void DoOnVictory(EcsWorld world)
         {
-            var delay = _victoryViewConfig.Value.ShowDelay.ToMilliseconds();
-            await UniTask.Delay(delay, cancellationToken: LifeTimeService.GetToken());
-            
-            _screenService.Value.OpenScreen<VictoryView>();
+            _screenService.Value.OpenScreen<VictoryScreen>();
             EffectName.Confetti.Play();
+            
+            world.TurnSystemGroupOff(SystemType.Update.ToString());
+            world.TurnSystemGroupOn("Endgame");
         }
     }
 }

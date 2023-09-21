@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace Code.BlackCubeSubmodule.ReactiveProperties
+namespace Code.MySubmodule.ReactiveProperties
 {
     /// <summary>
     /// Should be used for Views updates.
@@ -27,7 +27,10 @@ namespace Code.BlackCubeSubmodule.ReactiveProperties
         [PublicAPI]
         public T Value
         {
-            get => _value;
+            get
+            {
+                return _value;
+            }
             set
             {
                 _value = value;
@@ -36,12 +39,13 @@ namespace Code.BlackCubeSubmodule.ReactiveProperties
         }
 
         /// <summary>
-        /// Sets value without invoking OnChanged event.
+        /// Replaces current value with new one without invoking OnChanged event.
         /// </summary>
+        /// <returns></returns>
         [PublicAPI]
-        public void SetValue(T value)
+        public void SetValue(T newValue)
         {
-            _value = value;
+            _value = newValue;
         }
         
         public static implicit operator T(ReactiveProperty<T> property)

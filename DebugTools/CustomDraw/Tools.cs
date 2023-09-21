@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.DebugTools
+namespace Code.MySubmodule.DebugTools.CustomDraw
 {
     public static class Tools
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Object = System.Object;
 
-namespace Code.BlackCubeSubmodule.DataStructures
+namespace Code.MySubmodule.DataStructures
 {
     /// <summary>
     /// Simple container that can not create new types. 
@@ -27,7 +27,7 @@ namespace Code.BlackCubeSubmodule.DataStructures
         /// </summary>
         [PublicAPI]
         public void RegisterInstance<T>(T instance)
-        // where T: class
+        where T: class
         {
             var key = instance.GetType();
             if (_container.ContainsKey(key))
@@ -43,7 +43,7 @@ namespace Code.BlackCubeSubmodule.DataStructures
         /// </summary>
         [PublicAPI]
         public void UnregisterInstance<T>() 
-        // where T: class
+        where T: class
         {
             var type = typeof(T);
             if (_container.ContainsKey(type))
@@ -58,9 +58,9 @@ namespace Code.BlackCubeSubmodule.DataStructures
         [PublicAPI]
         [CanBeNull]
         public T GetInstance<T>() 
-        // where T: class
+        where T: class
         {
-            if (!_container.ContainsKey(typeof(T))) throw new NullReferenceException("Container does not contain requested type.");
+            if (!_container.ContainsKey(typeof(T))) return null;
             var result = (T)_container[typeof(T)];
             return result;
         }

@@ -1,13 +1,13 @@
-﻿using Code.BlackCubeSubmodule.Math;
+﻿using Code.MySubmodule.Math;
+using Code.MySubmodule.Services.LifeTime;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Leopotam.EcsLite;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.UI.Views
+namespace Code.MySubmodule.Services.UI.Views
 {
-    public abstract class View : MonoBehaviour, IEcsInitSystem
+    public class View : MonoBehaviour, IEcsInitSystem
     {
         /// <summary>
         /// Wrapper for gameObject.activeInHierarchy.
@@ -23,19 +23,13 @@ namespace Code.BlackCubeSubmodule.Services.UI.Views
         public bool IsOpening { get; private set; }
         
         // Should be left empty to avoid base.Init() calls. 
-        /// <summary>
-        /// Method is called during ECSInitSystems Init() call, but before Init() will be called for gameplay systems.
-        /// Should be used instead of Awake() method.
-        /// This method is called every scene reload if view is persistent. 
-        /// </summary>
-        [PublicAPI]
         public virtual void Init(IEcsSystems systems) { }
 
         [PublicAPI]
         public async void Open(float delay = 0f)
         {
             IsOpening = true;
-            await UniTask.Delay(delay.ToMilliseconds(), cancellationToken: this.GetCancellationTokenOnDestroy());
+            await UniTask.Delay(delay.ToMilliseconds(), cancellationToken: LifeTimeService.GetToken());
 
             IsOpening = false;
             gameObject.SetActive(true);
@@ -46,12 +40,12 @@ namespace Code.BlackCubeSubmodule.Services.UI.Views
         public async void Close(float delay = 0f)
         {
             IsOpening = false;
-            await UniTask.Delay(delay.ToMilliseconds(), cancellationToken: this.GetCancellationTokenOnDestroy());
+            await UniTask.Delay(delay.ToMilliseconds(), cancellationToken: LifeTimeService.GetToken());
 
             gameObject.SetActive(false);
             OnClose();
         }
-
+        
         // Should be left empty to avoid base.OnOpen() calls.
         /// <summary>
         /// Method is called in the frame when view gameObject becomes active in hierarchy.
@@ -67,23 +61,5 @@ namespace Code.BlackCubeSubmodule.Services.UI.Views
         /// </summary>
         [PublicAPI]
         protected virtual void OnClose(){ }
-        
-#if UNITY_EDITOR       
-        [Button("Open / Close")]
-        private void DebugOpenOrCloseOfTheViewInPlayMode()
-        {
-            if (Application.isPlaying)
-            {
-                if (!IsOpen && !IsOpening)
-                {
-                    Open();
-                }
-                else
-                {
-                    Close();
-                }
-            }
-        }
-#endif
     }
 }

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using Unity.IL2CPP.CompilerServices;
 
-namespace Code.BlackCubeSubmodule.Math
+namespace Code.MySubmodule.Math
 {
     public static class RandomMethods
     {
@@ -29,8 +28,6 @@ namespace Code.BlackCubeSubmodule.Math
         /// </summary>
         [PublicAPI]
         [CanBeNull]
-        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-        [Il2CppSetOption(Option.NullChecks, false)]
         public static T Random<T>(this IList<T> collection)
         {
             if (collection.Count == 0) return default;
@@ -41,7 +38,6 @@ namespace Code.BlackCubeSubmodule.Math
         /// Return provided number with random sign.
         /// </summary>
         [PublicAPI]
-        [Il2CppSetOption(Option.NullChecks, false)]
         public static int WithRandomSign(this int number)
         {
             var randomSign = UnityEngine.Random.Range(0, 2) * 2 - 1;
@@ -62,12 +58,16 @@ namespace Code.BlackCubeSubmodule.Math
         /// Recalculated chances to 100% and return array with 100 elements with provided chances.
         /// Array is allocated. Use only on init. 
         /// </summary>
-        /// <param name="decimalPrecision">Chances precision</param>
         [PublicAPI]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         //TODO: add ZeroDivision-disabled attribute and ArrayBoundsCheck-disabled attribute
         public static T[] GetSelectionArray<T>(T[] array, Func<T, float> weightSelector, DecimalPrecision precisionType = DecimalPrecision.Double)
         {
+            if (array.Length <= 0)
+            {
+                throw new Exception("Weights array is empty!");
+            }
+            
             var precisionFactor = (int)System.Math.Pow(10d, (int)precisionType);
             
             var totalWeightsSum = 0f;

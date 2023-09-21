@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Extensions
+namespace Code.MySubmodule.DebugTools.CustomDraw
 {
     public static class GizmosExtensions
     {

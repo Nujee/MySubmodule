@@ -2,19 +2,18 @@
 using System.Collections.ObjectModel;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Pools
+namespace Code.MySubmodule.Pools
 {
     public class PoolsSharedData
     {
         public const int DefaultStartingSize = 16;
         public const int DefaultRefillCount = 8;
 
-        private static readonly List<IInjectablePool> _persistentPools = new List<IInjectablePool>();
+        private static readonly List<IMyPool> _persistentPools = new List<IMyPool>();
 
-        public static ReadOnlyCollection<IInjectablePool> PersistentPools => _persistentPools.AsReadOnly();
+        public static ReadOnlyCollection<IMyPool> PersistentPools => _persistentPools.AsReadOnly();
         
         public static Transform PoolCommonParent { get; private set; }
-        public static Transform UiPoolCommonParent { get; private set; }
         
         public PoolsSharedData()
         {
@@ -26,20 +25,11 @@ namespace Code.BlackCubeSubmodule.Pools
             };
             
             Object.DontDestroyOnLoad(poolCommonParent);
+            
             PoolCommonParent = poolCommonParent.transform;
-            
-            var uiPoolCommonParent = new GameObject
-            {
-#if UNITY_EDITOR
-                name = "UI_POOL_COMMON_PARENT"
-#endif
-            };
-            
-            Object.DontDestroyOnLoad(uiPoolCommonParent);
-            UiPoolCommonParent = uiPoolCommonParent.transform;
         }
 
-        public static void Inject(IInjectablePool pool)
+        public static void Inject(IMyPool pool)
         {
             _persistentPools.Add(pool);
         }

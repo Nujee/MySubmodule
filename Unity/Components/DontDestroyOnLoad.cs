@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Unity.Components
+namespace Code.MySubmodule.Unity.Components
 {
     [DisallowMultipleComponent]
     public sealed class DontDestroyOnLoad : MonoBehaviour

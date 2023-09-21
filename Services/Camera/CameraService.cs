@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using Cinemachine;
-using Code.BlackCubeSubmodule.DebugTools.BlackCubeLogger;
-using Code.BlackCubeSubmodule.Utility.Constants;
 using JetBrains.Annotations;
 using UnityEngine;
 using CameraType = Code.Game.Constants.GeneratedCode.CameraName;
 
-namespace Code.BlackCubeSubmodule.Services.Camera
+namespace Code.MySubmodule.Services.Camera
 {
     public sealed class CameraService
     {
-        private readonly Dictionary<CameraType, GameObject> _cameras = new Dictionary<CameraType, GameObject>();
+        private readonly Dictionary<CameraType, GameObject> _cameras = new();
         
         private CameraType _currentlyActiveCamera;
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
         public CameraService(CameraType initiallyActiveCamera)
         {
             var camerasOnScene = Object.FindObjectsOfType<CameraNameMarker>(true);
@@ -24,8 +25,6 @@ namespace Code.BlackCubeSubmodule.Services.Camera
             }
             
             ActivateCamera(initiallyActiveCamera);
-            
-            $"{Names.Submodule}: {nameof(CameraService)} has been initialized".Colored(Color.green).Log();
         }
 
         public void AddTargetSettings(ICamerasTargetsSettings targetsSettings)

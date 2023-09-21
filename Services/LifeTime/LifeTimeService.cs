@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Code.BlackCubeSubmodule.DebugTools.BlackCubeLogger;
-using Code.BlackCubeSubmodule.Utility.Constants;
+using Code.MySubmodule.DebugTools.MyLogger;
+using Code.MySubmodule.Utility.Constants;
 using JetBrains.Annotations;
 using UniRx;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.LifeTime
+namespace Code.MySubmodule.Services.LifeTime
 {
     [DisallowMultipleComponent]
     public sealed class LifeTimeService : MonoBehaviour

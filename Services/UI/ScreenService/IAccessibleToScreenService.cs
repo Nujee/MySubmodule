@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.Services.UI.ScreenService
+﻿namespace Code.MySubmodule.Services.UI.ScreenService
 {
     /// <summary>
     /// IAccessibleToScreenService is a marker for screen to be found and controlled by ScreenService.

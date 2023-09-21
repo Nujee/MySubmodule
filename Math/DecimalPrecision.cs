@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.Math
+﻿namespace Code.MySubmodule.Math
 {
     public enum DecimalPrecision
     {

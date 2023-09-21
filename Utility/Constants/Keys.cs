@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.Utility.Constants
+﻿namespace Code.MySubmodule.Utility.Constants
 {
     public static class Keys
     {

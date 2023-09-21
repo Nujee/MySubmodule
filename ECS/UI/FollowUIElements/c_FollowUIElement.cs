@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.ECS.UI.FollowUIElements
+namespace Code.MySubmodule.ECS.UI.FollowUIElements
 {
     public struct c_FollowUIElement
     {

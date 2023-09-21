@@ -2,7 +2,7 @@
 using Code.Game.Constants.GeneratedCode;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.Camera
+namespace Code.MySubmodule.Services.Camera
 {
     public interface ICamerasTargetsSettings
     {

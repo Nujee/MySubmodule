@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.ECS.Movement.Joystick
+namespace Code.MySubmodule.ECS.Movement.Joystick
 {
     public struct c_JoystickMovementData
     {

@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace Code.BlackCubeSubmodule.CodeGeneration
+namespace Code.MySubmodule.CodeGeneration
 {
     public static class EnumBuilder
     {

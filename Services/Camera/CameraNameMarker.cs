@@ -1,10 +1,9 @@
 ﻿using Cinemachine;
 using Code.Game.Constants.GeneratedCode;
-using Sirenix.OdinInspector;
+using TriInspector;
 using UnityEngine;
-using CameraType = Code.Game.Constants.GeneratedCode.CameraName;
 
-namespace Code.BlackCubeSubmodule.Services.Camera
+namespace Code.MySubmodule.Services.Camera
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(CinemachineVirtualCamera))]

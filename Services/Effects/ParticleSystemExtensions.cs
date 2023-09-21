@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Code.BlackCubeSubmodule.Math;
-using Code.BlackCubeSubmodule.Services.LifeTime;
+using Code.MySubmodule.Math;
+using Code.MySubmodule.Services.LifeTime;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.Effects
+namespace Code.MySubmodule.Services.Effects
 {
     public static class ParticleSystemExtensions
     {

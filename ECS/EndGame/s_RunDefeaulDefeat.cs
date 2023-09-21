@@ -1,30 +1,34 @@
-﻿using Code.BlackCubeSubmodule.Services.UI.ScreenService;
-using Code.BlackCubeSubmodule.UI.DefeatScreen;
+﻿using Code.MySubmodule.ECS.ExtensionMethods;
+using Code.MySubmodule.ECS.LevelEntity;
+using Code.MySubmodule.Services.UI.Screens.ConcreteScreens;
+using Code.MySubmodule.Services.UI.ScreenService;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 
-namespace Code.BlackCubeSubmodule.ECS.EndGame
+namespace Code.MySubmodule.ECS.EndGame
 {
     public sealed class s_RunDefaultDefeat : IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<r_RunDefaultDefeat>> _defeatRequests = default;
-
+        private readonly EcsFilterInject<Inc<c_LevelRuntimeData, r_Defeat>, Exc<m_GameHasEnded>> _levels = default;
+        private readonly EcsPoolInject<m_GameHasEnded> _gameEnded = default;
         private readonly EcsCustomInject<ScreenService> _screenService = default;
-        private readonly EcsCustomInject<DefeatViewConfig> _defeatViewConfig = default;
 
         public void Run(IEcsSystems systems)
         {
-            foreach (var requestEntity in _defeatRequests.Value)
+            foreach (var entity in _levels.Value)
             {
-                DoOnDefeat();
-                
-                systems.GetWorld().DelEntity(requestEntity);
+                _levels.Pools.Inc2.Del(entity);
+                _gameEnded.Value.Add(entity);
+                DoOnDefeat(systems.GetWorld());
             }
         }
 
-        private void DoOnDefeat()
+        private void DoOnDefeat(EcsWorld world)
         {
-            _screenService.Value.OpenScreen<DefeatView>(_defeatViewConfig.Value.ShowDelay);
+            _screenService.Value.OpenScreen<DefeatScreen>();
+            
+            world.TurnSystemGroupOff(SystemType.Update.ToString());
+            world.TurnSystemGroupOn("Endgame");
         }
     }
 }

@@ -1,0 +1,18 @@
+{
+    "name": "MySubmodule.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d0b607f22d7fb5144802f142dc72be11"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

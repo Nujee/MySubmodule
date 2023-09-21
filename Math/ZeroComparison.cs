@@ -1,8 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Math
+namespace Code.MySubmodule.Math
 {
     public static class ZeroComparison
     {
@@ -10,7 +9,6 @@ namespace Code.BlackCubeSubmodule.Math
         /// Compares float to zero
         /// </summary>
         [PublicAPI]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsZero(this float a) => Mathf.Approximately(a, 0f);
     }
 }

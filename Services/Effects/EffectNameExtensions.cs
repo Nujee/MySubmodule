@@ -1,7 +1,7 @@
 ﻿using Code.Game.Constants.GeneratedCode;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.Effects
+namespace Code.MySubmodule.Services.Effects
 {
     public static class EffectNameExtensions
     {

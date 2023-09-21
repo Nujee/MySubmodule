@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.Main
+﻿namespace Code.MySubmodule.Main
 {
     public enum GameLoadType
     {

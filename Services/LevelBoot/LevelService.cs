@@ -1,7 +1,7 @@
 ﻿using System;
-using Code.BlackCubeSubmodule.DebugTools.BlackCubeLogger;
-using Code.BlackCubeSubmodule.Analytics;
-using Code.BlackCubeSubmodule.GameConfigs.AdressablesConfigs;
+using Code.MySubmodule.Analytics;
+using Code.MySubmodule.DebugTools.MyLogger;
+using Code.MySubmodule.GameSettings;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -9,7 +9,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace Code.BlackCubeSubmodule.Services.LevelBoot
+namespace Code.MySubmodule.Services.LevelBoot
 {
     public sealed class LevelService : IDisposable
     {
@@ -17,7 +17,7 @@ namespace Code.BlackCubeSubmodule.Services.LevelBoot
         private const string PreviousLevelIndex = "LastStartedLevel";
         private const string TotalLevelsPlayed = "TotalLevelsPlayed";
 
-        private readonly BuildConfig _buildConfig;
+        private readonly BuildSettings _buildSettings;
 
         private int _currentLevelIndex = 0;
         private int _previousLevelIndex = -1;
@@ -28,9 +28,9 @@ namespace Code.BlackCubeSubmodule.Services.LevelBoot
         public event Action FinishedLoadingScene;
         public event Action OnLoadNextScene = () => { };
 
-        public LevelService(BuildConfig buildConfig)
+        public LevelService(BuildSettings buildSettings)
         {
-            _buildConfig = buildConfig;
+            _buildSettings = buildSettings;
 
             if (PlayerPrefs.HasKey(CurrentLevelIndex))
             {
@@ -66,8 +66,8 @@ namespace Code.BlackCubeSubmodule.Services.LevelBoot
                 handle.completed += _ =>
                 {
                     if (_currentLevelIndex == _previousLevelIndex)
-                        BlackCubeAnalytics.LogLevelRestart(_totalLevelsPlayed, logDelay);
-                    else BlackCubeAnalytics.LogLevelStart(_totalLevelsPlayed, logDelay);
+                        MyAnalytics.LogLevelRestart(_totalLevelsPlayed, logDelay);
+                    else MyAnalytics.LogLevelStart(_totalLevelsPlayed, logDelay);
                 };
                 handle.completed += _ =>
                 {
@@ -82,12 +82,12 @@ namespace Code.BlackCubeSubmodule.Services.LevelBoot
             void ReloadScene()
             {
                 _loadHandle =
-                    Addressables.LoadSceneAsync(_buildConfig.Scenes[_currentLevelIndex], LoadSceneMode.Single);
+                    Addressables.LoadSceneAsync(_buildSettings.Scenes[_currentLevelIndex], LoadSceneMode.Single);
                 _loadHandle.Completed += _ =>
                 {
                     if (_currentLevelIndex == _previousLevelIndex)
-                        BlackCubeAnalytics.LogLevelRestart(_totalLevelsPlayed, logDelay);
-                    else BlackCubeAnalytics.LogLevelStart(_totalLevelsPlayed, logDelay);
+                        MyAnalytics.LogLevelRestart(_totalLevelsPlayed, logDelay);
+                    else MyAnalytics.LogLevelStart(_totalLevelsPlayed, logDelay);
                 };
                 _loadHandle.Completed += _ =>
                 {
@@ -106,22 +106,22 @@ namespace Code.BlackCubeSubmodule.Services.LevelBoot
         {
             OnLoadNextScene.Invoke();
             
-            var nextSceneIndex = _currentLevelIndex + 1 >= _buildConfig.Scenes.Length
-                ? _buildConfig.LevelLoopFirstIndex
+            var nextSceneIndex = _currentLevelIndex + 1 >= _buildSettings.Scenes.Length
+                ? _buildSettings.LevelLoopFirstIndex
                 : _currentLevelIndex + 1;
 
-            BlackCubeAnalytics.LogLevelComplete(_totalLevelsPlayed);
+            MyAnalytics.LogLevelComplete(_totalLevelsPlayed);
 
-            _loadHandle = Addressables.LoadSceneAsync(_buildConfig.Scenes[nextSceneIndex], LoadSceneMode.Single);
+            _loadHandle = Addressables.LoadSceneAsync(_buildSettings.Scenes[nextSceneIndex], LoadSceneMode.Single);
             _loadHandle.Completed += UpdateLevelData;
-            _loadHandle.Completed += _ => BlackCubeAnalytics.LogLevelStart(_totalLevelsPlayed);
+            _loadHandle.Completed += _ => MyAnalytics.LogLevelStart(_totalLevelsPlayed);
             _loadHandle.Completed += _ => FinishedLoadingScene.Invoke();
         }
 
         private void UpdateLevelData(AsyncOperationHandle<SceneInstance> _)
         {
-            _currentLevelIndex = _currentLevelIndex + 1 >= _buildConfig.Scenes.Length
-                ? _buildConfig.LevelLoopFirstIndex
+            _currentLevelIndex = _currentLevelIndex + 1 >= _buildSettings.Scenes.Length
+                ? _buildSettings.LevelLoopFirstIndex
                 : _currentLevelIndex + 1;
             _previousLevelIndex = _currentLevelIndex;
             _totalLevelsPlayed++;

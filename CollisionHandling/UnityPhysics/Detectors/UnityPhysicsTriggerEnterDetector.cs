@@ -1,11 +1,11 @@
-﻿using Code.BlackCubeSubmodule.DebugTools.BlackCubeLogger;
-using Code.BlackCubeSubmodule.ECS.LevelEntity;
-using Code.Game.Constants.GeneratedCode;
+﻿using Code.Game.Constants.GeneratedCode;
+using Code.MySubmodule.DebugTools.MyLogger;
+using Code.MySubmodule.ECS.LevelEntity;
 using JetBrains.Annotations;
 using Leopotam.EcsLite;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.CollisionHandling.UnityPhysics.Detectors
+namespace Code.MySubmodule.CollisionHandling.UnityPhysics.Detectors
 {
     [DisallowMultipleComponent]
     public sealed class UnityPhysicsTriggerEnterDetector : MonoBehaviour, IUnityPhysicsCollisionDetector

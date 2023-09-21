@@ -1,9 +1,9 @@
 #if UNITY_EDITOR
-using Code.BlackCubeSubmodule.CollisionHandling.SanyaPhysics.Colliders;
+using Code.MySubmodule.CollisionHandling.SanyaPhysics.Colliders;
 using UnityEditor;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.CollisionHandling.SanyaPhysics.Editor
+namespace Code.MySubmodule.CollisionHandling.SanyaPhysics.Editor
 {
     [CustomEditor(typeof(CustomCubeCollider))]
     public sealed class CustomCubeColliderEditor : UnityEditor.Editor

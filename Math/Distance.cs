@@ -1,8 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Math
+namespace Code.MySubmodule.Math
 {
     public static class Distance
     {
@@ -10,7 +9,6 @@ namespace Code.BlackCubeSubmodule.Math
         /// Ignores Y axis.
         /// </summary>
         [PublicAPI]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Manhattan(Vector3 a, Vector3 b)
         {
             var x = (a.x - b.x).Abs();

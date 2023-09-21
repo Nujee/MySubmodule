@@ -2,7 +2,7 @@
 using System.Reflection;
 using UnityEditor;
 
-namespace Code.BlackCubeSubmodule.Editor.Tools
+namespace Code.MySubmodule.Editor.Tools
 {
     public static class ClearConsole
     {

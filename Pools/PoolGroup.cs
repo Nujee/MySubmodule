@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Code.BlackCubeSubmodule.Pools
+namespace Code.MySubmodule.Pools
 {
     /// <summary>
     /// AS OF NOW THERE IS NO SUPPORT FOR OVERLOADING METHODS.
     /// THE EASIEST WAY TO ADD IS TO START REUSING ECS WORLD BETWEEN SCENES. 
     /// </summary>
     /// <typeparam name="TPoolID"></typeparam>
-    public class PoolGroup<TPoolID> : IInjectablePool
+    public class PoolGroup<TPoolID> : IMyPool
     where TPoolID: Enum
     {
         private readonly Dictionary<TPoolID, Pool> _internalPools = new Dictionary<TPoolID, Pool>();

@@ -1,10 +1,9 @@
 ﻿using UnityEngine.UI;
 
-namespace Code.BlackCubeSubmodule.Unity.Components
+namespace Code.MySubmodule.Unity.Components
 {
-    /// <summary>
     /// A concrete subclass of the Unity UI `Graphic` class that just skips drawing.
-    /// </summary>
+    /// Useful for providing a raycast target without actually drawing anything.
     public class NonDrawingGraphic : Graphic
     {
         public override void SetMaterialDirty() { }

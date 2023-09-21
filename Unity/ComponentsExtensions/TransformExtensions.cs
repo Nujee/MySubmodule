@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using Code.Game.Constants.GeneratedCode;
 using JetBrains.Annotations;
-using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Unity.ComponentsExtensions
+namespace Code.MySubmodule.Unity.ComponentsExtensions
 {
     public static class TransformExtensions
     {
@@ -24,28 +21,6 @@ namespace Code.BlackCubeSubmodule.Unity.ComponentsExtensions
             }
             
             return results;
-        }
-        
-        /// <summary>
-        /// Returns first child with tag. Only 1st generation children are checked.
-        /// </summary>
-        [PublicAPI]
-        [CanBeNull]
-        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-        [Il2CppSetOption(Option.NullChecks, false)]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Transform GetChildWithTag(this Transform parent, Tags tag)
-        {
-            for (int j = 0; j < parent.childCount; j++)
-            {
-                var child = parent.GetChild(j);
-                if (child.CompareTag(tag.ToString()))
-                {
-                    return child;
-                }
-            }
-
-            return null;
         }
     }
 }

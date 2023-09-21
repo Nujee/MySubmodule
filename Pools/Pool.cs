@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Code.BlackCubeSubmodule.DebugTools.BlackCubeLogger;
-using Code.BlackCubeSubmodule.ECS.Components.UnityComponents;
-using Code.BlackCubeSubmodule.Services.LifeTime;
+using Code.MySubmodule.DebugTools.MyLogger;
+using Code.MySubmodule.ECS.Components.UnityComponents;
+using Code.MySubmodule.Services.LifeTime;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Leopotam.EcsLite;
@@ -11,16 +10,16 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
 
-namespace Code.BlackCubeSubmodule.Pools
+namespace Code.MySubmodule.Pools
 {
     /// <summary>
     /// Pool specialized for work with ECS.
     /// Pool creates ECS entities on its own. Each created entity will have c_Transform attached to it. 
     /// </summary>
-    public class Pool : IDisposable, IInjectablePool
+    public class Pool : IDisposable, IMyPool
     {
-        private readonly Queue<GameObject> _availablePooledObjects = new();
-        private readonly List<GameObject> _allPooledObjects = new();
+        private readonly Queue<GameObject> _availablePooledObjects = new Queue<GameObject>();
+        private readonly List<GameObject> _allPooledObjects = new List<GameObject>();
         
         private int _startingSize = PoolsSharedData.DefaultStartingSize;
         private int _refillCount = PoolsSharedData.DefaultRefillCount;
@@ -33,7 +32,14 @@ namespace Code.BlackCubeSubmodule.Pools
         private Transform _poolParent;
         private GameObject _prefabLoadHandle;
 
-        public GameObject Prefab => _prefabLoadHandle;
+        [PublicAPI]
+        protected virtual void DoOnGet(EcsWorld world, int entity, GameObject pooledObject) { }
+        
+        [PublicAPI]
+        protected virtual void DoOnReturn(EcsWorld world, int entity, GameObject pooledObject) { }
+        
+        [PublicAPI]
+        protected virtual void DoOnFill(GameObject pooledObject) { }
 
         /// <summary>
         /// Changes pool starting size. Should be called before Init().
@@ -83,7 +89,7 @@ namespace Code.BlackCubeSubmodule.Pools
             };
             
             _poolParent = poolParent.transform;
-            _poolParent.SetParent(PoolsSharedData.PoolCommonParent);
+            _poolParent.parent = PoolsSharedData.PoolCommonParent;
 
             _prefabLoadHandle = prefab;
             FillPool(_startingSize);
@@ -103,7 +109,6 @@ namespace Code.BlackCubeSubmodule.Pools
         /// Object will automatically be enabled. 
         /// </summary>
         [PublicAPI]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int Get()
         {
             return Get(Vector3.zero, Quaternion.identity);
@@ -114,7 +119,6 @@ namespace Code.BlackCubeSubmodule.Pools
         /// Object will automatically be enabled. 
         /// </summary>
         [PublicAPI]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int Get(Vector3 position)
         {
             return Get(position, Quaternion.identity);
@@ -139,14 +143,16 @@ namespace Code.BlackCubeSubmodule.Pools
             var pooledObject = _availablePooledObjects.Dequeue();
             var entity = _ecsWorld.NewEntity();
 
-            pooledObject.transform.position = position;
             pooledObject.transform.SetParent(newParent);
+            pooledObject.transform.position = position;
             pooledObject.transform.rotation = rotation;
             pooledObject.transform.gameObject.SetActive(true);
             
             ref var c_transform = ref _ecsWorld.GetPool<c_Transform>().Add(entity);
             c_transform.Transform = pooledObject.transform;
 
+            DoOnGet(_ecsWorld, entity, pooledObject);
+            
             return entity;
         }
         
@@ -162,6 +168,8 @@ namespace Code.BlackCubeSubmodule.Pools
             pooledObject.transform.SetParent(_poolParent);
             pooledObject.SetActive(false);
 
+            DoOnReturn(_ecsWorld, entity, pooledObject);
+            
             _availablePooledObjects.Enqueue(pooledObject);
             
             _ecsWorld.DelEntity(entity);
@@ -176,7 +184,9 @@ namespace Code.BlackCubeSubmodule.Pools
 #if UNITY_EDITOR
                 newPooledObject.gameObject.name = $"{_prefabLoadHandle.name} ({_totalObjectedPooled++})";
 #endif
-
+                
+                DoOnFill(newPooledObject);
+                
                 newPooledObject.gameObject.SetActive(false);
                 _allPooledObjects.Add(newPooledObject);
                 _availablePooledObjects.Enqueue(newPooledObject);

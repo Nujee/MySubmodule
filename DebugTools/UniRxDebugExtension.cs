@@ -2,7 +2,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.DebugTools
+namespace Code.MySubmodule.DebugTools
 {
     public static class UniRxDebugExtension
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Leopotam.EcsLite;
-using UnityEngine;                               
-                                                 
-namespace Code.BlackCubeSubmodule.ECS.LevelEntity
+using UnityEngine;
+
+namespace Code.MySubmodule.ECS.LevelEntity
 {
     public sealed class i_Level : IEcsInitSystem
     {

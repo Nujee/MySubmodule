@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.ECS.LevelEntity
+namespace Code.MySubmodule.ECS.LevelEntity
 {
     public struct c_LevelRuntimeData
     {

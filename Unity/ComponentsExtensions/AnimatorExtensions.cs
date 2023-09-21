@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Unity.ComponentsExtensions
+namespace Code.MySubmodule.Unity.ComponentsExtensions
 {
     public static class AnimatorExtensions
     {

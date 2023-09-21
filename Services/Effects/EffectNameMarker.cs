@@ -1,8 +1,8 @@
 ﻿using Code.Game.Constants.GeneratedCode;
-using Sirenix.OdinInspector;
+using TriInspector;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.Effects
+namespace Code.MySubmodule.Services.Effects
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ParticleSystem))]

@@ -1,12 +1,12 @@
-﻿using Code.BlackCubeSubmodule.Math;
-using Code.BlackCubeSubmodule.Services.Effects.DoTween;
-using Code.BlackCubeSubmodule.Services.Effects.DoTween.EffectSettings;
-using Code.BlackCubeSubmodule.Services.LifeTime;
-using Code.Game.Constants.GeneratedCode;
+﻿using Code.Game.Constants.GeneratedCode;
+using Code.MySubmodule.Math;
+using Code.MySubmodule.Services.Effects.DoTween;
+using Code.MySubmodule.Services.Effects.DoTween.EffectSettings;
+using Code.MySubmodule.Services.LifeTime;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Code.BlackCubeSubmodule.Services.UI.Views.Extensions
+namespace Code.MySubmodule.Services.UI.Views.Extensions
 {
     public static class ViewExtensions
     {

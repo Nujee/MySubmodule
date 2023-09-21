@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 
-namespace Code.BlackCubeSubmodule.Services.Effects.DoTween.EffectSettings
+namespace Code.MySubmodule.Services.Effects.DoTween.EffectSettings
 {
     [System.Serializable]
     public struct AppearEffectSettings

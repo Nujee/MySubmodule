@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Math
+namespace Code.MySubmodule.Math
 {
     [System.Serializable]
     public struct FloatRange

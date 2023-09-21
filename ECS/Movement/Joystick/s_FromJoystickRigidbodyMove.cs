@@ -1,13 +1,13 @@
-﻿using Code.BlackCubeSubmodule.ECS.FeaturesImplementations.InputCapture.Joystick;
+﻿using Code.MySubmodule.ECS.InputCapture.Joystick;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.ECS.Movement.Joystick
+namespace Code.MySubmodule.ECS.Movement.Joystick
 {
     public sealed class s_FromJoystickRigidbodyMove : IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<r_ReceiveJoystickInput, c_JoystickMovementData>> _player = default;
+        private readonly EcsFilterInject<Inc<r_ProcessJoystickInput, c_JoystickMovementData>> _player = default;
 
         public void Run(IEcsSystems systems)
         {

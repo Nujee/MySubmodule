@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.DataStructures
+namespace Code.MySubmodule.DataStructures
 {
     public sealed class PriorityQueue<T>
     {

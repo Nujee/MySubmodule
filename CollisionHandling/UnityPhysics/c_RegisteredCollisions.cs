@@ -4,7 +4,7 @@ using Code.Game.Constants.GeneratedCode;
 using JetBrains.Annotations;
 using Leopotam.EcsLite;
 
-namespace Code.BlackCubeSubmodule.CollisionHandling.UnityPhysics
+namespace Code.MySubmodule.CollisionHandling.UnityPhysics
 {
     public struct c_RegisteredCollisions : IEcsAutoReset<c_RegisteredCollisions>
     {

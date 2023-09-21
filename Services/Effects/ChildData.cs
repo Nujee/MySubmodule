@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.Effects
+namespace Code.MySubmodule.Services.Effects
 {
     public readonly struct ChildData
     {

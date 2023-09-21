@@ -1,16 +1,16 @@
-﻿using Code.BlackCubeSubmodule.DebugTools.BlackCubeLogger;
-using Code.BlackCubeSubmodule.Utility.Constants;
+﻿using Code.MySubmodule.DebugTools.MyLogger;
+using Code.MySubmodule.Utility.Constants;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Code.BlackCubeSubmodule.Main
+namespace Code.MySubmodule.Main
 {
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(int.MinValue)]
     public sealed class EntryPoint : MonoBehaviour
     {
         private BaseSessionCompositionRoot _sessionCompositionRoot;
-        private SceneCompositionRoot _sceneCompositionRoot;
+        private BaseSceneCompositionRoot _sceneCompositionRoot;
         
         private void Awake()
         {
@@ -27,6 +27,8 @@ namespace Code.BlackCubeSubmodule.Main
                 sessionCompositionRoot.Init(GameLoadType.OnDeviceLoad);
             }
             else if (FindObjectsOfType<EntryPoint>().Length > 1)
+                
+                
             {
                 $"{Names.Submodule}: {nameof(EntryPoint)} aborting due to another {nameof(EntryPoint)} present"
                     .Colored(Color.green)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Code.BlackCubeSubmodule.CodeGeneration
+namespace Code.MySubmodule.CodeGeneration
 {
     public static class ClassWithConstantsBuilder
     {

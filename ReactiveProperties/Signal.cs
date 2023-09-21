@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Code.BlackCubeSubmodule.ReactiveProperties
+namespace Code.MySubmodule.ReactiveProperties
 {
     public struct Signal
     {

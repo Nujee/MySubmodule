@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.Services.Effects.DoTween.EffectSettings
+﻿namespace Code.MySubmodule.Services.Effects.DoTween.EffectSettings
 {
     [System.Serializable]
     public struct FadeEffectSettings

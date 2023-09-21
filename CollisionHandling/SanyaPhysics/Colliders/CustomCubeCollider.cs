@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.CollisionHandling.SanyaPhysics.Colliders
+namespace Code.MySubmodule.CollisionHandling.SanyaPhysics.Colliders
 {
     public sealed class CustomCubeCollider : MonoBehaviour
     {

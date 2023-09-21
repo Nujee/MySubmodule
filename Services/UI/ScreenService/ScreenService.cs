@@ -1,61 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using Code.BlackCubeSubmodule.GameConfigs.AdressablesConfigs;
-using Code.BlackCubeSubmodule.Math;
-using Code.BlackCubeSubmodule.Pools;
-using Code.BlackCubeSubmodule.Services.LifeTime;
-using Code.BlackCubeSubmodule.Services.UI.Views;
+﻿using System.Collections.Generic;
+using Code.MySubmodule.Math;
+using Code.MySubmodule.Services.LifeTime;
+using Code.MySubmodule.Services.UI.Views;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using UnityEngine;
 
-namespace Code.BlackCubeSubmodule.Services.UI.ScreenService
+namespace Code.MySubmodule.Services.UI.ScreenService
 {
-    public sealed class ScreenService
+    public sealed class ScreenService : MonoBehaviour
     {
-        private readonly Dictionary<int, UiPool> _screenPools = new();
-        private readonly Dictionary<int, View> _screens = new();
-        private readonly Dictionary<int, View> _openedScreens = new();
-
-        private ScreenService() { }
+        private readonly Dictionary<int, View> _screens = new Dictionary<int, View>();
         
-        public static async UniTask<ScreenService> New(View[] potentialPreloadedScreens, UiPoolsConfig config)
+        public void Initialise()
         {
-            var screenService = new ScreenService();
-            
-            for (var i = 0; i < potentialPreloadedScreens.Length; i++)
+            var potentialScreens = FindObjectsOfType<View>(true);
+            for (var i = 0; i < potentialScreens.Length; i++)
             {
-                if (potentialPreloadedScreens[i] is IAccessibleToScreenService)
+                if (potentialScreens[i] is IAccessibleToScreenService)
                 {
-                    screenService._screens.Add(potentialPreloadedScreens[i].GetType().Name.GetHashCode(), potentialPreloadedScreens[i]);
+                    _screens.Add(potentialScreens[i].GetType().Name.GetHashCode(), potentialScreens[i]);
                 }
             }
 
-            foreach (var poolSettings in config.UiPoolSettings)
-            {
-                var newPool = await UiPool.New(poolSettings);
-                screenService._screenPools.Add(newPool.PoolType.Name.GetHashCode(), newPool);
-            }
-
-            foreach (var screen in screenService._screens)
+            foreach (var screen in _screens)
             {
                 screen.Value.Close();
             }
-            
-            return screenService;
         }
 
-        /// <summary>
-        /// Will show TScreen after delay seconds and will close it after duration seconds.
-        /// If TScreen is already open or opening, will do nothing.
-        /// </summary>
-        [PublicAPI]
-        public void OpenScreenAsPopup<TScreen>(float duration, ScreenOpenType screenOpenType = ScreenOpenType.Single, float delay = 0f)
-            where TScreen: View, IAccessibleToScreenService
-        {
-            OpenScreen<TScreen>(delay, screenOpenType);
-            CloseScreen<TScreen>(duration);
-        }
-        
         /// <summary>
         /// Will show TScreen after delay seconds.
         /// If TScreen is already open or opening, will do nothing.
@@ -65,29 +38,10 @@ namespace Code.BlackCubeSubmodule.Services.UI.ScreenService
             where TScreen: View, IAccessibleToScreenService
         {
             var screenID = typeof(TScreen).Name.GetHashCode();
-            var view = default(View);
-            var viewFromPool = false;
-            if (_screens.TryGetValue(screenID, out var screen))
+            var screen = _screens[screenID];
+            if (!screen.IsOpen && !screen.IsOpening)
             {
-                view = screen;
-            }
-            else if (_screenPools.TryGetValue(screenID, out var pool))
-            {
-                view = pool.Get();
-                viewFromPool = true;
-            }
-            else
-            {
-                throw new Exception($"{typeof(TScreen)} has not been added to ScreenService.");
-            }
-            
-            if (!view.IsOpen && !view.IsOpening)
-            {
-                view.Open(delay);
-                if (viewFromPool)
-                {
-                    _openedScreens.Add(screenID, view);
-                }
+                _screens[screenID].Open(delay);
             
                 if (screenOpenType == ScreenOpenType.Single)
                 {
@@ -102,30 +56,13 @@ namespace Code.BlackCubeSubmodule.Services.UI.ScreenService
         /// If TScreen is already closed, will do nothing.
         /// </summary>
         public void CloseScreen<TScreen>(float delay = 0f)
-            where TScreen: View, IAccessibleToScreenService
         {
             var screenID = typeof(TScreen).Name.GetHashCode();
+            var screen = _screens[screenID];
             
-            if (_screens.TryGetValue(screenID, out var screen))
+            if (screen.IsOpen || screen.IsOpening)
             {
-                if (screen.IsOpen || screen.IsOpening)
-                {
-                    screen.Close(delay);
-                }
-            }
-            else if (_screenPools.TryGetValue(screenID, out var pool))
-            {
-                var view = _openedScreens[screenID];
-                _openedScreens.Remove(screenID);
-                if (view.IsOpen || view.IsOpening)
-                {
-                    view.Close(delay);
-                    pool.Return(view);
-                }
-            }
-            else
-            {
-                throw new Exception($"{typeof(TScreen)} has not been added to ScreenService.");
+                _screens[screenID].Close(delay);
             }
         }
 
