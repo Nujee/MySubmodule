@@ -1,4 +1,4 @@
-﻿namespace Code.BlackCubeSubmodule.ECS.Features.Requests.RequestTrain
+﻿namespace Code.MySubmodule.ECS.Features.RequestTrain
 {
     public struct c_TrainRunning { }
 }

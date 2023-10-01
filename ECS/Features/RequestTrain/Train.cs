@@ -1,11 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
-using Code.BlackCubeSubmodule.Math;
-using Code.BlackCubeSubmodule.Services.LifeTime;
+using Code.MySubmodule.Math;
+using Code.MySubmodule.Services.LifeTime;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Leopotam.EcsLite;
 
-namespace Code.BlackCubeSubmodule.ECS.Features.Requests.RequestTrain
+namespace Code.MySubmodule.ECS.Features.RequestTrain
 {
     /// <summary>
     /// Train is a tool to reduce amount of code needed for sequential execution of systems.

@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Leopotam.EcsLite;
 
-namespace Code.BlackCubeSubmodule.ECS.Features.Requests.RequestTrain
+namespace Code.MySubmodule.ECS.Features.RequestTrain
 {
     public static class EcsSystemsExtensionsRequestTrain
     {
