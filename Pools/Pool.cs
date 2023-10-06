@@ -149,7 +149,7 @@ namespace Code.MySubmodule.Pools
             pooledObject.transform.gameObject.SetActive(true);
             
             ref var c_transform = ref _ecsWorld.GetPool<c_Transform>().Add(entity);
-            c_transform.Transform = pooledObject.transform;
+            c_transform.Value = pooledObject.transform;
 
             DoOnGet(_ecsWorld, entity, pooledObject);
             
@@ -164,7 +164,7 @@ namespace Code.MySubmodule.Pools
         public void Return(int entity)
         {
             ref var c_transform = ref _ecsWorld.GetPool<c_Transform>().Get(entity);
-            var pooledObject = c_transform.Transform.gameObject;
+            var pooledObject = c_transform.Value.gameObject;
             pooledObject.transform.SetParent(_poolParent);
             pooledObject.SetActive(false);
 

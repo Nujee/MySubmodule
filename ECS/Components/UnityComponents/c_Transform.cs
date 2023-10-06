@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.MySubmodule.ECS.Components.UnityComponents
 {
     public struct c_Transform
     {
-        public Transform Transform;
+        [FormerlySerializedAs("Transform")] public Transform Value;
     }
 }
